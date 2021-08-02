@@ -81,6 +81,7 @@ function MyTesting(props) {
                 props.myLessons.map((item, index) => {
                   return (
                     <div
+                      style={{ marginRight: "16px" }}
                       onClick={() => {
                         setSelectedCourse(item);
                       }}
@@ -140,6 +141,7 @@ function MyTesting(props) {
               {selectedCourse.quizes.map((item, index) => {
                 return (
                   <div
+                    style={{ marginRight: "16px" }}
                     onClick={() => {
                       setSelectedQuiz(item);
                     }}
