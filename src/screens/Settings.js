@@ -15,6 +15,7 @@ import PhoneInput, {
 import ru from "react-phone-number-input/locale/ru";
 import { getMyCourses } from "../actions/LessonActions";
 import { connect } from "react-redux";
+import Calendar from "./widgets/Calendar";
 
 class Settings extends Component {
   state = {
@@ -76,63 +77,51 @@ class Settings extends Component {
             <h1>Мои настройки</h1>
           </div>
           {!this.state.isActive ? (
-            <div className="d-flex personal-profile">
-              <div className="col-md-4 d-flex flex-column">
-                <div className="avatar-name d-flex flex-column align-items-center">
-                  <img src={AvatarIcon} alt="" />
-                  <h2>{user.name}</h2>
-                  <h3>ученик</h3>
-                  <button onClick={() => this.switchToggle()}>Изменить</button>
+            <div className="personal-profile">
+              <div className="col-md-12 d-flex">
+                <div className="col-md-4 d-flex flex-column">
+                  <div className="avatar-name d-flex flex-column align-items-center">
+                    <img src={AvatarIcon} alt="" />
+                    <h2>{user.name}</h2>
+                    <h3>ученик</h3>
+                    <button onClick={() => this.switchToggle()}>
+                      Изменить
+                    </button>
+                  </div>
                 </div>
 
-                <div className="last-course d-flex flex-column">
-                  <h2>Ваши курсы</h2>
-                  <div className="d-flex mb-4 justify-content-between align-items-center">
-                    <h3 className="course-name w-50">Физика</h3>
-                    <h3>0%</h3>
-                    <Link to="/profile/lesson/phys">
-                      <img src={PlayButton} alt="" />
-                    </Link>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h3 className="course-name w-50">Математика</h3>
-                    <h3>0%</h3>
-                    <Link to="/profile/lesson/math">
-                      <img src={PlayButton} alt="" />
-                    </Link>
+                <div className="col-md-8 d-flex flex-column">
+                  <div className="information d-flex flex-column">
+                    <h2>Персональная информация</h2>
+                    <div className="d-flex mb-4">
+                      <div className="d-flex w-50">
+                        <h3>Номер тел.:</h3>
+                        <p>{user.phone}</p>
+                      </div>
+                      <div className="d-flex w-50">
+                        <h3>Дата рождения:</h3>
+                        <p>{user.bday}</p>
+                      </div>
+                    </div>
+                    <div className="d-flex">
+                      <div className="d-flex w-50">
+                        <h3>Пол:</h3>
+                        {user.gender == "male" ? (
+                          <p>Мужской</p>
+                        ) : (
+                          <p>Женский</p>
+                        )}
+                      </div>
+                      <div className="d-flex w-50">
+                        <h3>E-mail:</h3>
+                        <p>{user.email}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="col-md-8 d-flex flex-column">
-                <div className="information d-flex flex-column">
-                  <h2>Персональная информация</h2>
-                  <div className="d-flex mb-4">
-                    <div className="d-flex w-50">
-                      <h3>Номер тел.:</h3>
-                      <p>{user.phone}</p>
-                    </div>
-                    <div className="d-flex w-50">
-                      <h3>Дата рождения:</h3>
-                      <p>{user.bday}</p>
-                    </div>
-                  </div>
-                  <div className="d-flex">
-                    <div className="d-flex w-50">
-                      <h3>Пол:</h3>
-                      {user.gender == "male" ? <p>Мужской</p> : <p>Женский</p>}
-                    </div>
-                    <div className="d-flex w-50">
-                      <h3>E-mail:</h3>
-                      <p>{user.email}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="saved-card d-flex flex-column">
-                  <h2>Сохраненные карты:</h2>
-                  <p>У вас нет сохраненных карт</p>
-                </div>
+              <div className="col-md-12 d-flex flex-column">
+                <Calendar />
               </div>
             </div>
           ) : (
