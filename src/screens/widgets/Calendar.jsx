@@ -15,7 +15,7 @@ const ShadowWrapper = styled("div")`
   box-shadow: 0 0 0 1px #1a1a1a, 0 8px 20px 6px #888;
 `;
 
-function Calendar(n ) {
+function Calendar({ tasks }) {
   moment.updateLocale("en", { week: { dow: 1 } });
   // const today = moment();
   const [today, setToday] = useState(moment());
@@ -28,6 +28,8 @@ function Calendar(n ) {
   const todayHandler = () => setToday(moment());
   const nextHandler = () => setToday((prev) => prev.clone().add(1, "month"));
 
+  console.log(tasks);
+
   return (
     <ShadowWrapper>
       <Title />
@@ -37,10 +39,7 @@ function Calendar(n ) {
         todayHandler={todayHandler}
         nextHandler={nextHandler}
       />
-      <CalendarGrid
-        startDay={startDay}
-        tasks={[moment(), moment().add(1, "day")]}
-      />
+      <CalendarGrid startDay={startDay} tasks={tasks} />
     </ShadowWrapper>
   );
 }

@@ -57,9 +57,15 @@ const CalendarGrid = ({ startDay, tasks }) => {
   const day = startDay.clone().subtract(1, "day");
   const daysMap = [...Array(totalDays)].map(() => day.add(1, "day").clone());
 
+  console.log(tasks);
   const isCurrentDay = (day) => moment().isSame(day, "day");
   const isTaskDay = (day) =>
-    tasks.filter((task) => task.isSame(day, "day")).length > 0;
+    tasks
+      .filter((task) => task)
+      .filter((task) => {
+        console.log(task);
+        return moment(task).isSame(day, "day");
+      }).length > 0;
   // console.log(daysMap)
   return (
     <GridWrapper>

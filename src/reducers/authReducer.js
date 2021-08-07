@@ -1,5 +1,5 @@
 import initialState from "./initialState";
-import { SIGN_IN, SIGN_OUT, SIGN_UP } from "../types";
+import { GET_USER_COURSE_STATUS, SIGN_IN, SIGN_OUT, SIGN_UP } from "../types";
 import authService from "../services/authService";
 
 export const authReducer = (state = initialState.profile, action) => {
@@ -26,6 +26,19 @@ export const authReducer = (state = initialState.profile, action) => {
         error: true,
         isAuthenticated: false,
         isLoading: false,
+      };
+    case `${GET_USER_COURSE_STATUS}_PENDING`:
+      return {
+        ...state,
+      };
+    case `${GET_USER_COURSE_STATUS}_SUCCESS`:
+      return {
+        ...state,
+        userCourseStatus: action.payload,
+      };
+    case `${GET_USER_COURSE_STATUS}_FAILURE`:
+      return {
+        ...state,
       };
     case `${SIGN_UP}_PENDING`:
       return {

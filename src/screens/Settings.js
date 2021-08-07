@@ -16,6 +16,8 @@ import ru from "react-phone-number-input/locale/ru";
 import { getMyCourses } from "../actions/LessonActions";
 import { connect } from "react-redux";
 import Calendar from "./widgets/Calendar";
+import { userCourseStatus } from "../actions/AuthActions";
+import moment from "moment";
 
 class Settings extends Component {
   state = {
@@ -41,6 +43,7 @@ class Settings extends Component {
           user: data.data,
         });
       });
+    this.props.getUserCourseStatus(this.props.user.user_id);
   }
 
   switchToggle = () => {
@@ -60,6 +63,19 @@ class Settings extends Component {
         alert("Данные изменены");
       });
     this.switchToggle();
+  };
+
+  enumerateDaysBetweenDates = function (startDate, endDate) {
+    var dates = [];
+
+    var currDate = moment(startDate).startOf("day");
+    var lastDate = moment(endDate).startOf("day");
+
+    while (currDate.add(1, "days").diff(lastDate) < 0) {
+      dates.push(currDate.clone().toDate());
+    }
+
+    return dates;
   };
 
   render() {
@@ -118,10 +134,48 @@ class Settings extends Component {
                       </div>
                     </div>
                   </div>
+                  <div
+                    className="information d-flex space-between"
+                    style={{ justifyContent: "space-between" }}
+                  >
+                    <div className="flex-column">
+                      <p>Уроков пройдено</p>
+                      <p>
+                        {this.props.courseStatus &&
+                          this.props.courseStatus.progressList.length}
+                      </p>
+                    </div>
+                    <div className="flex-column">
+                      <p>Тестов пройдено</p>
+                      <p>
+                        {this.props.courseStatus &&
+                          this.props.courseStatus.quizResultsList.length}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="col-md-12 d-flex flex-column">
-                <Calendar />
+                <Calendar
+                  tasks={
+                    this.props.courseStatus != null
+                      ? [
+                          ...this.props.courseStatus.data.reduce(
+                            (acc, course) => {
+                              return [
+                                ...acc,
+                                ...this.enumerateDaysBetweenDates(
+                                  moment(course.purchaisedDate),
+                                  moment(course.validDate)
+                                ),
+                              ];
+                            },
+                            []
+                          ),
+                        ]
+                      : []
+                  }
+                />
               </div>
             </div>
           ) : (
@@ -245,10 +299,12 @@ const mapStateToProps = (state) => ({
   myLessons: state.LessonsReducer.myLessons,
   authReducer: state.authReducer,
   simple: state.form.simple,
+  courseStatus: state.authReducer.userCourseStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getMyCourses: () => dispatch(getMyCourses()),
+  getUserCourseStatus: (id) => dispatch(userCourseStatus(id)),
   dispatch,
 });
 
