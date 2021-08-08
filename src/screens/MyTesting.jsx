@@ -77,8 +77,8 @@ function MyTesting(props) {
             </div>
             <h1 className="d-md-block d-none">Мои курсы</h1>
             <div className="row">
-              {props.myLessons != null &&
-                props.myLessons.map((item, index) => {
+              {props.myLessons.data != null &&
+                props.myLessons.data.map((item, index) => {
                   return (
                     <div
                       style={{ marginRight: "16px" }}
@@ -104,23 +104,6 @@ function MyTesting(props) {
                             {/* <h4>Учитель математики</h4> */}
                           </div>
                         </div>
-                      </div>
-
-                      <div className="progress-course d-flex align-items-center justify-content-between">
-                        <div
-                          className="progress w-75"
-                          style={{ height: 2 + "px" }}
-                        >
-                          <div
-                            className="progress-bar"
-                            role="progressbar"
-                            style={{ width: 0 + "%" }}
-                            aria-valuenow="25"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          />
-                        </div>
-                        <span>{item.progress}%</span>
                       </div>
                     </div>
                   );

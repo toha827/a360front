@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import Calendar from "./widgets/Calendar";
 import { userCourseStatus } from "../actions/AuthActions";
 import moment from "moment";
+import { endpoint } from "../api";
 
 class Settings extends Component {
   state = {
@@ -35,9 +36,7 @@ class Settings extends Component {
       name,
     });
     axios
-      .get(
-        `http://localhost:8000/javaApi/api/Profile/read?id=${this.props.user.user_id}`
-      )
+      .get(endpoint + `/Profile/read?id=${this.props.user.user_id}`)
       .then((data) => {
         this.setState({
           user: data.data,
@@ -57,11 +56,9 @@ class Settings extends Component {
       ...this.props.simple.values,
     };
     data.id = this.props.user.user_id;
-    axios
-      .post("https://web.oqu.today/phpapi/api/Profile/edit.php", data)
-      .then(() => {
-        alert("Данные изменены");
-      });
+    axios.post(endpoint + "/Profile/edit", data).then(() => {
+      alert("Данные изменены");
+    });
     this.switchToggle();
   };
 

@@ -6,6 +6,7 @@ import bg from "../images/mobile-bg-header2.jpg";
 import NavArrow from "../images/navArrow.png";
 import { MathWrap } from "../images";
 import { Progress } from "antd";
+import { grey } from "@material-ui/core/colors";
 
 function MyProgresses(props) {
   const [progresses, setProgresses] = useState([]);
@@ -87,9 +88,24 @@ function MyProgresses(props) {
               <Link
                 to={"/profile/lesson/" + item.id}
                 className="col-md-12 d-flex flex-column"
+                style={{
+                  border: "2px solid grey",
+                  borderRadius: 10,
+                  padding: 16,
+                  marginBottom: 16,
+                  backgroundColor: "#f5f5f5",
+                }}
               >
-                <div className="row">{item.name}</div>
-                <div className="row">
+                <div
+                  className="row"
+                  style={{ marginLeft: 0, marginBottom: 24, fontSize: "20px" }}
+                >
+                  {item.name}
+                </div>
+                <div
+                  className="row"
+                  style={{ marginLeft: 0, marginBottom: 24 }}
+                >
                   <div className="col-md-10">
                     <div className="row">
                       {Object.keys(item.lessons).map(function (key, index) {

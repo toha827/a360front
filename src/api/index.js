@@ -1,8 +1,8 @@
 import axios from "axios";
 import { authReducer } from "../reducers/authReducer";
 import authService from "../services/authService";
-// const endpoint = "http://45.80.70.68/api/javaApi/api"/;
-const endpoint = "http://localhost:8000/javaApi/api";
+// export const endpoint = "http://45.80.70.68/api/javaApi/api";
+export const endpoint = "http://localhost:8000/javaApi/api";
 
 export const loginAPI = (user) => {
   return axios.post(endpoint + "/Profile/checklogin", user, {

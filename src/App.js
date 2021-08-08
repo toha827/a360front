@@ -16,7 +16,7 @@ import {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <div>
         <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />

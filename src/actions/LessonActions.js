@@ -51,7 +51,7 @@ export const getMyCourses = (id) => async (dispatch) => {
     if (response && response.status === 200) {
       dispatch({
         type: `${GET_MY_LESSONS}_SUCCESS`,
-        payload: response.data.data,
+        payload: response.data,
       });
     } else {
       dispatch({
